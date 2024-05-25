@@ -53,11 +53,16 @@ class KMeans:
         # Plot the final clusters and centroids
         assignments = self.fit(data)
         plt.figure(figsize=(12, 8))
-        plt.scatter(data[:, 0], data[:, 1], c=assignments, alpha=0.5, cmap='turbo')
-        plt.scatter(self.centroids[:, 0], self.centroids[:, 1], color='black', marker='x')
+        colors = plt.cm.turbo(np.linspace(0, 1, self.num_clusters))
+        # poner label para cada cluster
+        for i in range(self.num_clusters):
+            plt.scatter(data[assignments == i, 0], data[assignments == i, 1], alpha=0.5, label=f'Cluster {i}', color=colors[i])
+        plt.scatter(self.centroids[:, 0], self.centroids[:, 1], color='black', marker='x', label='Centroids')
         plt.title(f"Final Cluster Visualization ({self.num_clusters} clusters)")
         plt.xlabel("A")
         plt.ylabel("B")
+        # legend outside of plot with cluster colors
+        plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         plt.show()
 
 
@@ -130,11 +135,14 @@ class GMM:
         responsibilities = self.e_step(data)
         assignments = responsibilities.argmax(axis=1)
         plt.figure(figsize=(12, 8))
-        plt.scatter(data[:, 0], data[:, 1], c=assignments, alpha=0.5, cmap='turbo')
-        plt.scatter(self.means[:, 0], self.means[:, 1], color='black', marker='x')
+        colors = plt.cm.turbo(np.linspace(0, 1, self.num_components))
+        for i in range(self.num_components):
+            plt.scatter(data[assignments == i, 0], data[assignments == i, 1], alpha=0.5, label=f'Cluster {i}', color=colors[i])
+        plt.scatter(self.means[:, 0], self.means[:, 1], color='black', marker='x', label='Means')
         plt.title(f"Final Cluster Visualization ({self.num_components} clusters)")
         plt.xlabel("X")
         plt.ylabel("Y")
+        plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         plt.show()
 
 
