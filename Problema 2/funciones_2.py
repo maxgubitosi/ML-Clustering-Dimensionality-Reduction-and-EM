@@ -8,7 +8,7 @@ from scipy.stats import multivariate_normal
 import torch
 from torch.utils.data import DataLoader, TensorDataset
 # from torchvision import transforms
-from torch import nn
+from torch import nn, optim
 from torch.nn import functional as F
 
 def plot_sample(data, i=None):
@@ -128,7 +128,23 @@ class VAE(nn.Module):
         z = self.reparameterize(mu, logvar)
         return self.decode(z), mu, logvar
 
-def loss_function(recon_x, x, mu, logvar):
-    BCE = F.binary_cross_entropy(recon_x, x.view(-1, 784), reduction='sum')
-    KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
-    return BCE + KLD
+    def loss_function(self, recon_x, x, mu, logvar):
+        BCE = F.binary_cross_entropy(recon_x, x.view(-1, 784), reduction='sum')
+        KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+        return BCE + KLD
+    
+    def train_model(self, train_loader, device, epochs=10, lr=1e-3):
+        optimizer = optim.Adam(self.parameters(), lr=lr)
+        self.to(device)
+        for epoch in range(epochs):
+            self.train()
+            train_loss = 0
+            for batch_idx, (data,) in enumerate(train_loader):
+                data = data.to(device)
+                optimizer.zero_grad()
+                recon_batch, mu, logvar = self(data)
+                loss = self.loss_function(recon_batch, data, mu, logvar)
+                loss.backward()
+                train_loss += loss.item()
+                optimizer.step()
+            print(f'Epoch: {epoch}, Loss: {train_loss / len(train_loader.dataset)}')
