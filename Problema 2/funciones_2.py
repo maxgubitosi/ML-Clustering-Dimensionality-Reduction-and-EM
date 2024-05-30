@@ -102,26 +102,43 @@ def plot_reconstructions(df, X_re, n_samples=10):
 
 
 class VAE(nn.Module):
-    def __init__(self):
+    def __init__(self, encoder_layers, decoder_layers):
         super(VAE, self).__init__()
-        self.fc1 = nn.Linear(784, 400)
-        self.fc21 = nn.Linear(400, 20)  # mean
-        self.fc22 = nn.Linear(400, 20)  # log-variance
-        self.fc3 = nn.Linear(20, 400)
-        self.fc4 = nn.Linear(400, 784)
+
+        # Crear el encoder
+        self.encoder = nn.ModuleList()
+        for in_features, out_features in encoder_layers[:-1]:
+            self.encoder.append(nn.Linear(in_features, out_features))
+            self.encoder.append(nn.ReLU())
+        
+        # Última capa del encoder sin activación ReLU
+        self.fc_mu = nn.Linear(*encoder_layers[-1])
+        self.fc_logvar = nn.Linear(*encoder_layers[-1])
+
+        # Crear el decoder
+        self.decoder = nn.ModuleList()
+        for in_features, out_features in decoder_layers[:-1]:
+            self.decoder.append(nn.Linear(in_features, out_features))
+            self.decoder.append(nn.ReLU())
+        
+        # Última capa del decoder con activación sigmoid
+        self.decoder.append(nn.Linear(*decoder_layers[-1]))
+        self.decoder.append(nn.Sigmoid())
 
     def encode(self, x):
-        h1 = F.relu(self.fc1(x))
-        return self.fc21(h1), self.fc22(h1)
+        for layer in self.encoder:
+            x = layer(x)
+        return self.fc_mu(x), self.fc_logvar(x)
 
     def reparameterize(self, mu, logvar):
-        std = torch.exp(0.5*logvar)
+        std = torch.exp(0.5 * logvar)
         eps = torch.randn_like(std)
-        return mu + eps*std
+        return mu + eps * std
 
     def decode(self, z):
-        h3 = F.relu(self.fc3(z))
-        return torch.sigmoid(self.fc4(h3))
+        for layer in self.decoder:
+            z = layer(z)
+        return z
 
     def forward(self, x):
         mu, logvar = self.encode(x.view(-1, 784))
@@ -133,7 +150,7 @@ class VAE(nn.Module):
         KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
         return BCE + KLD
     
-    def train_model(self, train_loader, device, epochs=10, lr=1e-3):
+    def train_model(self, train_loader, device, epochs=10, lr=1e-3, verbose=1):
         optimizer = optim.Adam(self.parameters(), lr=lr)
         self.to(device)
         for epoch in range(epochs):
@@ -147,4 +164,5 @@ class VAE(nn.Module):
                 loss.backward()
                 train_loss += loss.item()
                 optimizer.step()
-            print(f'Epoch: {epoch}, Loss: {train_loss / len(train_loader.dataset)}')
+            if verbose != 0:
+                print(f'Epoch: {epoch}, Loss: {train_loss / len(train_loader.dataset)}')
