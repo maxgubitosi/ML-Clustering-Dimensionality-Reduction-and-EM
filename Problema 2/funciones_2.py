@@ -105,23 +105,23 @@ class VAE(nn.Module):
     def __init__(self, encoder_layers, decoder_layers):
         super(VAE, self).__init__()
 
-        # Crear el encoder
+        # Create encoder
         self.encoder = nn.ModuleList()
         for in_features, out_features in encoder_layers[:-1]:
             self.encoder.append(nn.Linear(in_features, out_features))
             self.encoder.append(nn.ReLU())
         
-        # Última capa del encoder sin activación ReLU
+        # Last layer of encoder with 2 outputs (mu and logvar)
         self.fc_mu = nn.Linear(*encoder_layers[-1])
         self.fc_logvar = nn.Linear(*encoder_layers[-1])
 
-        # Crear el decoder
+        # Create decoder
         self.decoder = nn.ModuleList()
         for in_features, out_features in decoder_layers[:-1]:
             self.decoder.append(nn.Linear(in_features, out_features))
             self.decoder.append(nn.ReLU())
         
-        # Última capa del decoder con activación sigmoid
+        # Last layer of decoder with 784 outputs
         self.decoder.append(nn.Linear(*decoder_layers[-1]))
         self.decoder.append(nn.Sigmoid())
 
