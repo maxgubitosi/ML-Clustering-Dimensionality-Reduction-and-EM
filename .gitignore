@@ -1,9 +1,0 @@
-# Ignore everything
-**
-
-# Except the .gitignore and the directories that may contain .py or .ipynb files
-!.gitignore
-!**/
-!*.py
-!*.ipynb
-!*.md
