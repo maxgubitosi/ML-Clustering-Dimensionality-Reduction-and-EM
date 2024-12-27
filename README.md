@@ -1,6 +1,6 @@
 # Clustering, Dimensionality Reduction, and EM Algorithm
 
-This repository contains the solutions to the fourth practical assignment for the course “I302 - Machine Learning and Deep Learning” for the last semester of 2023.
+This repository contains the solutions to the fourth practical assignment for the course “I302 - Machine Learning and Deep Learning” for the second semester of 2023.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -71,19 +71,27 @@ The implementation can be found in:
 
 ## Results
 
-Clustering Results
+### Clustering Results
 
 Visualization of the clustering results for K-Means, GMM, and DBSCAN. Each plot shows the data distribution, assigned clusters, and centroids (if applicable).
+#### KMeans
+![Loss vs nºclusters](results/k_means_elbow.png)
+![Clusters](results/k_means.png)
+#### GMM
+![Loss vs nºclusters](results/gmm_elbow.png)
+![Clusters](results/gmm.png)
+#### DBSCAN
+![Results Grid](results/dbscan_grid.png)
+![Clusters](results/dbscan.png)
 
-PCA Results
+### PCA Results
 
-Analysis of the reconstruction error as a function of the number of principal components, along with side-by-side visual comparisons of original and reconstructed images.
+![PCA](results/pca.png)
+Analysis of the reconstruction error as a function of the number of principal components, along with side-by-side visual comparisons of original and reconstructed images with different algorithms.
+![Reconstructions](results/reconstructions.png)
 
-Expectation-Maximization Results
-
-Mathematical derivations, optimized parameter values, and graphical representation of the Gaussian Mixture Model (GMM) results.
 
 
 ### Contributions
 
-This practical assignment was developed by [Máximo Gubitosi] as part of the “I302 - Machine Learning and Deep Learning” course during the last semester of 2023.
+This practical assignment was developed by Máximo Gubitosi as part of the “I302 - Machine Learning and Deep Learning” course during the second semester of 2023.
