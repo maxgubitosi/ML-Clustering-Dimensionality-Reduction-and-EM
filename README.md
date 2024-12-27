@@ -1,25 +1,25 @@
-Clustering, Dimensionality Reduction, and Expectation-Maximization
+# Clustering, Dimensionality Reduction, and EM Algorithm
 
-This repository contains the solutions to the fourth practical assignment for the course “I302 - Machine Learning and Deep Learning” for the first semester of 2024.
+This repository contains the solutions to the fourth practical assignment for the course “I302 - Machine Learning and Deep Learning” for the last semester of 2023.
 
-📚 Table of Contents
-	•	Introduction
-	•	Problem Descriptions
-	•	1. Data Clustering
-	•	2. Dimensionality Reduction
-	•	3. Expectation-Maximization
-	•	Results
-	•	Clustering Results
-	•	PCA Results
-	•	Expectation-Maximization Results
+## Table of Contents
+- [Introduction](#introduction)
+- [Problem Descriptions](#problem-descriptions)
+  - [1. Data Clustering](#1-data-clustering)
+  - [2. Dimensionality Reduction](#2-dimensionality-reduction)
+  - [3. Expectation-Maximization](#3-expectation-maximization)
+- [Results](#results)
+  - [Data Clustering Results](#data-clustering-results)
+  - [Dimensionality Reduction Results](#dimensionality-reduction-results)
+  - [Expectation-Maximization Results](#expectation-maximization-results)
 
-📝 Introduction
+## Introduction
 
 This repository contains a collection of Jupyter Notebooks and Python scripts developed for the fourth practical assignment of the “I302 - Machine Learning and Deep Learning” course. The assignment focuses on three key topics: Data Clustering, Dimensionality Reduction, and Expectation-Maximization (EM).
 
 The problems were solved using basic tools such as NumPy, Pandas, Matplotlib, and optionally PyTorch for more advanced tasks. Each problem is organized into separate folders, with corresponding notebooks and auxiliary scripts when necessary.
 
-📊 Problem Descriptions
+## Problem Descriptions
 
 1. Data Clustering
 
@@ -35,9 +35,9 @@ The goal of this problem is to analyze the dataset clustering.csv using various 
 	•	Optimal parameters were selected, and clusters were visualized.
 
 The implementation can be found in:
-	•	ML-TP2/
-	•	clustering_analysis.ipynb
-	•	clustering_functions.py
+	•	Problema 1/
+	•	Problema_1.ipynb
+	•	funciones_1.py
 
 2. Dimensionality Reduction
 
@@ -51,9 +51,9 @@ This problem uses the MNIST dataset.csv to reduce the dimensionality of image da
 	•	Built using PyTorch to compare its performance with PCA.
 
 The implementation can be found in:
-	•	ML-TP3/
-	•	pca_analysis.ipynb
-	•	pca_functions.py
+	•	Problema 2/
+	•	Problema_2.ipynb
+	•	funciones_2.py
 
 3. Expectation-Maximization
 
@@ -66,11 +66,10 @@ This problem focuses on deriving and implementing the Expectation-Maximization (
 	•	Proof that the Q(w, w₀) function is a lower bound on the log-likelihood.
 
 The implementation can be found in:
-	•	ML-TP4/
-	•	em_algorithm.ipynb
+	•	Problema 3/
 	•	(Mathematical derivations are included as an image inside the notebook.)
 
-📈 Results
+## Results
 
 Clustering Results
 
@@ -84,25 +83,7 @@ Expectation-Maximization Results
 
 Mathematical derivations, optimized parameter values, and graphical representation of the Gaussian Mixture Model (GMM) results.
 
-🚀 How to Run the Notebooks
-	1.	Clone the repository:
 
-git clone https://github.com/your-username/ML-TP4.git
-cd ML-TP4
-
-
-	2.	Install the necessary dependencies:
-
-pip install -r requirements.txt
-
-
-	3.	Launch Jupyter Notebook:
-
-jupyter notebook
-
-
-	4.	Open the corresponding .ipynb files from each folder.
-
-🤝 Contributions
+### Contributions
 
 This practical assignment was developed by [Máximo Gubitosi] as part of the “I302 - Machine Learning and Deep Learning” course during the last semester of 2023.
